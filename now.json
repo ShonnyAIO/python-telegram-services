@@ -1,0 +1,11 @@
+{
+    "builds": [{ 
+      "src": "archivo.py", "use": "@now/python"
+    }],
+    "routes": [
+          { "src": "/(.*)", "dest": "archivo.py" }
+    ],
+    "env": {
+      "TELEGRAM_TOKEN": "@telegram-token"
+    }
+  }
