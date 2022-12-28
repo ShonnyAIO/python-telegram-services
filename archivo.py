@@ -11,8 +11,8 @@ def bot_send_text(bot_message):
     
     # bot_token = '5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM'
     # bot_chatID = '1714790512'
-    bot_token = os.environ["TELEGRAM_TOKEN"]
-    bot_chatID = os.environ["CHAT_ID"]
+    bot_token = os.getenv["TELEGRAM_TOKEN"]
+    bot_chatID = os.getenv["CHAT_ID"]
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)
