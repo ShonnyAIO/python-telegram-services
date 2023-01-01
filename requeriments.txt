@@ -1,6 +1,5 @@
-BeautifulSoup
-Flask
-requests
-schedule
-python-dotenv
-python-decouple
+beautifulsoup4==4.11.1
+bs4==0.0.1
+Flask==2.1.2
+requests==2.26.0
+schedule==1.1.0

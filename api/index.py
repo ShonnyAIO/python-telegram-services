@@ -4,7 +4,6 @@ from flask import Flask
 from flask import request
 from flask import Response
 from bs4 import BeautifulSoup  #del módulo bs4, necesitamos BeautifulSoup
-from decouple import config
 
 app = Flask(__name__)
 
