@@ -36,15 +36,16 @@ def get_corpoelec():
 
 @app.post("/")
 def index():
-    msg = request.get_json()
-    inputText = msg["message"]["text"]
-    if inputText == "/start":
-        bot_send_text("Ya, I am Online. Send me a Prompt")
-        schedule.every().day.at("10:00").do(get_cantv)
-        schedule.every().day.at("10:00").do(get_corpoelec)
-        while True:
-            schedule.run_pending()
+    bot_send_text("Bienvenidos estoy activo el Bot")
+    get_cantv()
+    get_corpoelec()
     return Response("ok", status=200)
+
+
+schedule.every().day.at("10:00").do(get_cantv)
+schedule.every().day.at("10:00").do(get_corpoelec)
+while True:
+    schedule.run_pending()
 
 
 
