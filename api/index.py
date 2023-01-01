@@ -6,7 +6,7 @@ from flask import request
 from flask import Response
 
 app = Flask(__name__)
-TOKEN = "Your API TOKEN from BotFather"
+TOKEN = "5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM"
 
 def imageAsDict(imageURL, caption):
     return {
