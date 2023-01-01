@@ -24,8 +24,8 @@ def bot_send_text(bot_message):
 def get_cantv():
     url = requests.get('https://cati.cantv.com.ve/chat_cantv_java/Servlet_Consulta_Saldo?consulta_codigo_area=212&consulta_numero_telefonico=5772359')
     response = url.json()
-    fecha_aux = response[0]["fechaVencimiento"]
-    fecha_pago = fecha_aux[6:8] + "/" + fecha_aux[4:6] + "/" + fecha_aux[0:4]
+    fecha_aux = response[0]["fechaUltimaFacturacion"]
+    fecha_pago = int(fecha_aux[6:8]) + 2 + "/" + fecha_aux[4:6] + "/" + fecha_aux[0:4]
     bot_send_text(f'Su estado de cuenta de CANTV es: {response[0]["saldoActual"]} Bolivares tienes hasta la fecha de: {fecha_pago}')
 
 def get_corpoelec():
