@@ -36,7 +36,7 @@ def get_corpoelec():
 
 @app.post("/")
 def index():
-    msg = request.get_json()
+    msg = requests.get_json()
     inputText = msg["message"]["text"]
     if inputText == "/start":
         bot_send_text("Ya, I am Online. Send me a Prompt")
