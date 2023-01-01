@@ -35,18 +35,18 @@ def get_corpoelec():
     format_result = result.text.replace(' ', '')
     bot_send_text(f'Su estado de cuenta de CORPOELEC es: {format_result} Bolivares')
 
-@app.route("/")
+@app.post("/")
 def index():
-    bot_send_text("Estoy conectado :D")
-    get_corpoelec()
-    get_cantv()
+    msg = request.get_json()
+    inputText = msg["message"]["text"]
+    if inputText == "/start":
+        bot_send_text("Ya, I am Online. Send me a Prompt")
+        schedule.every().day.at("10:00").do(get_cantv)
+        schedule.every().day.at("10:00").do(get_corpoelec)
+        while True:
+            schedule.run_pending()
     return Response("ok", status=200)
 
-schedule.every().day.at("10:00").do(get_cantv)
-schedule.every().day.at("10:00").do(get_corpoelec)
-app.run('0.0.0.0', 8080)
 
-while True:
-    schedule.run_pending()
 
 # https://api.telegram.org/bot5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM/setWebhook?url=https://python-telegram-services.vercel.app
