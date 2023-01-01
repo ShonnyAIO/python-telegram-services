@@ -35,7 +35,7 @@ def get_corpoelec():
     format_result = result.text.replace(' ', '')
     bot_send_text(f'Su estado de cuenta de CORPOELEC es: {format_result} Bolivares')
 
-@app.get("/")
+@app.route("/")
 def index():
     bot_send_text("Estoy conectado :D")
     get_corpoelec()
