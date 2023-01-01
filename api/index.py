@@ -45,11 +45,11 @@ def index():
         get_cantv()
     return Response("ok", status=200)
 
-schedule.every().day.at("10:00").do(get_cantv)
-schedule.every().day.at("10:00").do(get_corpoelec)
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# schedule.every().day.at("10:00").do(get_cantv)
+# schedule.every().day.at("10:00").do(get_corpoelec)
+# while True:
+    #schedule.run_pending()
+    # time.sleep(1)
 
 
 
