@@ -1,23 +1,20 @@
-from bs4 import BeautifulSoup  #del módulo bs4, necesitamos BeautifulSoup
-from http.server import BaseHTTPRequestHandler
-from decouple import config
 import requests
 import schedule
+from flask import Flask
+from flask import request
+from flask import Response
+from bs4 import BeautifulSoup  #del módulo bs4, necesitamos BeautifulSoup
+from decouple import config
+
+app = Flask(__name__)
+
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(str('Hello World!!').encode())
-        return
-
 def bot_send_text(bot_message):
 
-    bot_token = config("TELEGRAM_TOKEN")
-    bot_chatID = config("CHAT_ID")
+    bot_token = "5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM"
+    bot_chatID = "1714790512"
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)
@@ -50,11 +47,21 @@ def report():
     btc_price = f'El precio de Bitcon es de {btc_scraping()}'
     bot_send_text(btc_price)
 
+@app.post("/")
+def index():
+    msg = request.get_json()
+    inputText = msg["message"]["text"]
+    if inputText == "/start":
+        bot_send_text("Estoy conectado :D")
+    return Response("ok", status=200)
+
 
 get_corpoelec()
 get_cantv()
 schedule.every().day.at("10:00").do(get_cantv)
 schedule.every().day.at("10:00").do(get_corpoelec)
+
+app.run('0.0.0.0', 8080)
 
 while True:
     schedule.run_pending()

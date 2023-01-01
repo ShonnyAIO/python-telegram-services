@@ -1,4 +1,5 @@
 BeautifulSoup
+Flask
 requests
 schedule
 python-dotenv
