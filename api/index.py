@@ -35,33 +35,18 @@ def get_corpoelec():
     format_result = result.text.replace(' ', '')
     bot_send_text(f'Su estado de cuenta de CORPOELEC es: {format_result} Bolivares')
 
-def btc_scraping():
-    url = requests.get('https://awebanalysis.com/es/coin-details/bitcoin/')
-    soup = BeautifulSoup(url.content, 'html.parser')
-    result = soup.find('td', {'class' : 'text-larger text-price'})
-    format_result = result.text
-
-    return format_result
-
-def report():
-    btc_price = f'El precio de Bitcon es de {btc_scraping()}'
-    bot_send_text(btc_price)
-
-@app.post("/")
+@app.get("/")
 def index():
-    msg = request.get_json()
-    inputText = msg["message"]["text"]
-    if inputText == "/start":
-        bot_send_text("Estoy conectado :D")
+    bot_send_text("Estoy conectado :D")
+    get_corpoelec()
+    get_cantv()
     return Response("ok", status=200)
 
-
-get_corpoelec()
-get_cantv()
 schedule.every().day.at("10:00").do(get_cantv)
 schedule.every().day.at("10:00").do(get_corpoelec)
-
 app.run('0.0.0.0', 8080)
 
 while True:
     schedule.run_pending()
+
+# https://api.telegram.org/bot5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM/setWebhook?url=https://python-telegram-services.vercel.app
