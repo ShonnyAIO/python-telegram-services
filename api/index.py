@@ -1,5 +1,6 @@
 import schedule
 import requests
+import time
 from flask import Flask
 from flask import request
 from flask import Response
@@ -40,11 +41,15 @@ def index():
     inputText = msg["message"]["text"]
     if inputText == "/start":
         bot_send_text("Bienvenidos estoy activo el Bot")
-        schedule.every().day.at("10:00").do(get_cantv)
-        schedule.every().day.at("10:00").do(get_corpoelec)
-        while True:
-            schedule.run_pending()
+        get_corpoelec()
+        get_cantv()
     return Response("ok", status=200)
+
+schedule.every().day.at("10:00").do(get_cantv)
+schedule.every().day.at("10:00").do(get_corpoelec)
+while True:
+    schedule.run_pending()
+    time.sleep(1)
 
 
 
