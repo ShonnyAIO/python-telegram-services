@@ -1,18 +1,23 @@
-# TOKEN: 5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM
 from bs4 import BeautifulSoup  #del módulo bs4, necesitamos BeautifulSoup
+from http.server import BaseHTTPRequestHandler
+from decouple import config
 import requests
 import schedule
-import os
-
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(str('Hello World!!').encode())
+        return
+
 def bot_send_text(bot_message):
-    
-    # bot_token = '5920449308:AAFMoryS9bN6E_lWJvuQPdjjZxisDb8G1JM'
-    # bot_chatID = '1714790512'
-    bot_token = os.getenv["TELEGRAM_TOKEN"]
-    bot_chatID = os.getenv["CHAT_ID"]
+
+    bot_token = config("TELEGRAM_TOKEN")
+    bot_chatID = config("CHAT_ID")
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
 
     response = requests.get(send_text)

@@ -1,3 +1,5 @@
 BeautifulSoup
 requests
 schedule
+python-dotenv
+python-decouple
